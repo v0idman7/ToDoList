@@ -1,0 +1,45 @@
+.input {
+  margin-top: 5px;
+  margin-left: 47px;
+  width: 759px;
+	overflow: auto; 
+
+  &-off {
+    display: none;
+  }
+
+  &__label {
+    font-family: SalesforceSans;
+    font-size: 12px;
+    font-weight: 400;
+    color: #706E6B;
+  }
+
+  &__textarea {
+    width: 757px;
+    height: 88px;
+  	margin-top: 3px;
+  	padding: 16px 12px 13px 23px;
+		background: #FFFFFF;
+    border: 1px solid #DDDBDA;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-family: Roboto;
+    font-weight: 400;
+    font-size: 16px;
+    color: #53565A;
+  }
+
+  &__button {
+    width: 191px;
+    height: 36px;
+    margin-top: 11px;
+    background-color: #2F80ED;
+    border: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+    font-weight: 500;
+    color: #FFFFFF;
+		float: right;
+  }
+}
