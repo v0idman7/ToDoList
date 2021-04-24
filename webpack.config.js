@@ -112,7 +112,7 @@ module.exports = {
     new MiniCSSExtractPlugin({
       filename: filename('css')
     }),
-    new ImageMinimizerPlugin({
+    /* new ImageMinimizerPlugin({
       test: /\.(jpe?g|png|gif|svg)$/i,
       minimizerOptions: {
         // Lossless optimization with custom option
@@ -133,7 +133,7 @@ module.exports = {
           ],
         ],
       },
-    }),
+    }), */
   ],
   module: {
     rules: [

@@ -28,7 +28,7 @@
   transition: 0.5s;
   overflow: hidden;
 
-  &:hover {
+  &:hover, &:focus {
     border-color: rgba(47, 128, 237, 0.5);
     box-shadow: 0 10px 20px rgba(47, 128, 237, 0.5);
 
@@ -38,8 +38,14 @@
   }
 
   &__text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
     color: #53565A;
     width: 728px;
+    white-space: pre-line;
+    line-height: 20px;
+    overflow: hidden;
   }
 
   &__mark {
@@ -50,6 +56,7 @@
     width: 183px;
     height: 36px;
     border: 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.6);
     border-radius: 18px;
     background: #38B46C;
     font-weight: 700;
@@ -57,6 +64,12 @@
     line-height: 16px;
     color: #FFFFFF;
     transition: 0.5s;
+
+    &:focus {
+      opacity: 100%;
+      
+      box-shadow: 0 4px 8px rgba(47, 128, 237, 0.5);
+    }
   }
 
   &__del {
@@ -70,6 +83,10 @@
     border-radius: 50%;
     background: url('../images/design/Delete.svg') #E1E1E1 center no-repeat;
     transition: 0.5s;
+
+    &:focus {
+      opacity: 100%;
+    }
   }
 
   &--important {
@@ -78,7 +95,10 @@
       line-height: 20px;
 
       &::before {
-        content: '\2606  ';
+        content: '\00A0\00A0\00A0\00A0\00A0\00A0';
+        width: 20px;
+        height: 20px;
+        background: url("data:image/svg+xml,%3Csvg width='20' height='19' viewBox='0 0 20 19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.98438 13.4062L13.7344 15.6562L12.75 11.3906L16.0781 8.48438L11.6719 8.10938L9.98438 4.07812L8.29688 8.10938L3.89062 8.48438L7.21875 11.3906L6.23438 15.6562L9.98438 13.4062ZM19.9688 7.21875L14.5312 11.9531L16.1719 18.9844L9.98438 15.2344L3.79688 18.9844L5.4375 11.9531L0 7.21875L7.17188 6.60938L9.98438 0L12.7969 6.60938L19.9688 7.21875Z' fill='%234F4F4F'/%3E%3C/svg%3E") left no-repeat;
       }
     }
 
@@ -94,7 +114,7 @@
 
     &:hover {  
       & .list-item__mark{
-        opacity: 0;
+        display: none;
       }
     }
   }

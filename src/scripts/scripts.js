@@ -84,13 +84,13 @@ function displayItems() {		//Выводим результат с учётом �
 	}
 	toDoOut.forEach(function(item) {
 		items += `
-		<li class="toDo__list-item list-item ${item.done ? 'list-item--done' : ''} ${item.important ? 'list-item--important' : ''}">
-			<span class="list-item__text">${item.text}</span>
+		<li class="toDo__list-item list-item ${item.done ? 'list-item--done' : ''} ${item.important ? 'list-item--important' : ''}" tabindex=0>
+			<span class="list-item__text" title='${item.text}'>${item.text.replace(/\n/g,'<br/>')}</span>
 			<button class="list-item__mark mark">${item.important ? 'NOT IMPORTANT' : 'MARK IMPORTANT'}</button>
 			<button class="list-item__del"></button>
 		</li>`;
 		toDo.innerHTML = items;
-	});
+	});	
 }
 
 let searchWrap = document.querySelector('.header__search-wrapper')			//Возможно нужно убрать, бесполезная штука
@@ -109,10 +109,10 @@ list.addEventListener('click', function(ev){			//Обработчик клика
 		let value;
 		if (ev.target.closest('.list-item__text')){
 			ev.target.parentElement.classList.toggle('list-item--done');
-			value = ev.target.innerHTML;
+			value = ev.target.innerHTML.replace(/<br>/g, '\n');
 		} else {
 			ev.target.classList.toggle('list-item--done');
-			value = ev.target.children[0].innerHTML;
+			value = ev.target.children[0].innerHTML.replace(/<br>/g, '\n');
 		}
 		toDoList.forEach(function(item) {
 			if (item.text === value){
@@ -124,7 +124,7 @@ list.addEventListener('click', function(ev){			//Обработчик клика
 	
 	let del = ev.target.closest ('.list-item__del')
 	if (del){			//Удаляет задачу из списка
-		let value = del.parentElement.children[0].innerHTML;
+		let value = del.parentElement.children[0].innerHTML.replace(/<br>/g, '\n');
 		toDoList.forEach(function(item, i) {
 			if (item.text === value){
 				toDoList.splice(i, 1);
@@ -138,7 +138,7 @@ list.addEventListener('click', function(ev){			//Обработчик клика
 	if (ev.target.closest ('.list-item__mark')) {
 		mark.parentElement.classList.toggle('list-item--important');
 		mark.innerHTML = (mark.innerHTML === 'MARK IMPORTANT') ? 'NOT IMPORTANT' : 'MARK IMPORTANT';
-		let value = mark.parentElement.children[0].innerHTML;
+		let value = mark.parentElement.children[0].innerHTML.replace(/<br>/g, '\n');
 		toDoList.forEach(function(item) {
 			if (item.text === value){
 				item.important = !item.important;

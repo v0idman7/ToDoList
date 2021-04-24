@@ -1,6 +1,7 @@
 .input {
   margin-top: 5px;
   margin-left: 47px;
+  padding: 0 1px 1px 0;
   width: 759px;
 	overflow: auto; 
 
@@ -28,6 +29,11 @@
     font-weight: 400;
     font-size: 16px;
     color: #53565A;
+
+    &:focus {
+      border-color: rgba(47, 128, 237, 0.5);
+      box-shadow: 0 4px 8px rgba(47, 128, 237, 0.5);
+    }
   }
 
   &__button {
@@ -41,5 +47,9 @@
     font-weight: 500;
     color: #FFFFFF;
 		float: right;
+
+    &:focus {
+      outline: 1px solid #38B46C;
+    }
   }
 }
