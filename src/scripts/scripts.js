@@ -84,10 +84,10 @@ function displayItems() {		//Выводим результат с учётом �
 	}
 	toDoOut.forEach(function(item) {
 		items += `
-		<li class="toDo__list-item list-item ${item.done ? 'list-item--done' : ''} ${item.important ? 'list-item--important' : ''}" tabindex=0>
+		<li class="toDo__list-item list-item ${item.done ? 'list-item--done' : ''} ${item.important ? 'list-item--important' : ''} ${isTouchDevice() ? 'list-item--touch' : ''}" tabindex=0>
 			<span class="list-item__text" title='${item.text}'>${item.text.replace(/\n/g,'<br/>')}</span>
 			<button class="list-item__mark mark">${item.important ? 'NOT IMPORTANT' : 'MARK IMPORTANT'}</button>
-			<button class="list-item__del"></button>
+			<button class="list-item__del del"></button>
 		</li>`;
 		toDo.innerHTML = items;
 	});	
@@ -147,5 +147,9 @@ list.addEventListener('click', function(ev){			//Обработчик клика
 		});
 	}
 });
+
+function isTouchDevice() {
+	return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+}
 
 //Ошибки при отметке одного из нескольких одинаковых объектов

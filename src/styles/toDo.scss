@@ -67,7 +67,6 @@
 
     &:focus {
       opacity: 100%;
-      
       box-shadow: 0 4px 8px rgba(47, 128, 237, 0.5);
     }
   }
@@ -112,10 +111,26 @@
       text-decoration: line-through;
     }
 
-    &:hover {  
+    &:hover {
       & .list-item__mark{
         display: none;
       }
+    }
+  }
+
+  &--touch {
+    padding-bottom: 50px;
+
+    & .mark {
+      top: auto;
+      bottom: 10px;
+      opacity: 100%;
+    }
+
+    & .del {
+      top: auto;
+      bottom: 6px;
+      opacity: 100%;
     }
   }
 }
