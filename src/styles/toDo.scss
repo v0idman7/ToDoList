@@ -4,6 +4,7 @@
   &__list {
     margin: 0;
     padding: 0;
+    width: 100%;
   }
 
   &__list-item {
@@ -18,7 +19,6 @@
 
 .list-item {
   position: relative;
-  width: 728px;
   height: 80px;
   padding: 16px 12px 13px 23px;  
   background: #FFFFFF;
@@ -42,7 +42,7 @@
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     color: #53565A;
-    width: 728px;
+    width: 100%;
     white-space: pre-line;
     line-height: 20px;
     overflow: hidden;
