@@ -106,18 +106,6 @@
     }
   }
 
-  &--done {
-    & .list-item__text {
-      text-decoration: line-through;
-    }
-
-    &:hover {
-      & .list-item__mark{
-        display: none;
-      }
-    }
-  }
-
   &--touch {
     padding-bottom: 50px;
 
@@ -131,6 +119,18 @@
       top: auto;
       bottom: 6px;
       opacity: 100%;
+    }
+  }
+
+  &--done {
+    & .list-item__text {
+      text-decoration: line-through;
+    }
+
+    &:hover {
+      & .list-item__mark{
+        display: none;
+      }
     }
   }
 }

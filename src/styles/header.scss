@@ -7,6 +7,7 @@ body {
   font-size: 16px;
   font-weight: 400;
   max-width: 845px;
+  min-width: 320px;
   padding-right: 40px;
 }
 
@@ -21,18 +22,29 @@ body {
 		width: 903px;
 		height: 735px;
 		z-index: -1;
-		background: url('../images/design/Background.png');
+		background: url('../images/design/Background.png') top right no-repeat;
 
+    @media (max-width: 640px) {
+      top: 270px;
+      right: -20px;
+      background-size: 60%;
+    }
 	}
 
   &__top {
     display: flex;
     vertical-align: middle;
+
+    @media (max-width: 640px) {
+      flex-direction: column;
+    }
   }
 
   &__logo {
     @media (max-width: 640px) {
       width: 120px;
+      align-self: center;
+      padding-bottom: 10px;
     }
   }
 
@@ -70,6 +82,10 @@ body {
 
   &__nav {
     padding: 31px 0 13px 21px;
+
+    @media (max-width: 640px) {
+      padding-top: 20px;
+    }
   }
 }
 

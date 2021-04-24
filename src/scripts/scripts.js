@@ -4,13 +4,20 @@ tabList = document.querySelector('.tab'),
 input = document.querySelector('.input__textarea'),
 toDo = document.querySelector('.toDo__list');
 
-let toDoList = [];
-let tab = 'All';
+let toDoList = [];		//Значение по умолчанию для списка задач
+let tab = 'All';		//Значение по умолчанию для активной вкладки
+let id = 0;			//Значение по умолчанию для id первой задачи - используется для уникальности каждой записи		
 
 if (JSON.parse(localStorage.getItem('tab')) === null){		//Считываем tab из local storage, если там пусто, то записываем All
 	localStorage.setItem('tab', JSON.stringify(tab));
 } else {
 	tab = JSON.parse(localStorage.getItem('tab'));
+}
+
+if (JSON.parse(localStorage.getItem('id')) === null){		//Считываем id из local storage, если там пусто, то записываем 0
+	localStorage.setItem('id', JSON.stringify(id));
+} else {
+	id = JSON.parse(localStorage.getItem('id'));
 }
 
 setTabClass();
@@ -47,6 +54,7 @@ addButton.addEventListener('click', function(){			//При клике на кн�
 	}
 	else {
 		let newToDoList = {
+			id: id,
 			text: input.value,
 			done: false,
 			important: false
@@ -55,6 +63,8 @@ addButton.addEventListener('click', function(){			//При клике на кн�
 		displayItems();
 		input.value = '';
 		localStorage.setItem('toDoList', JSON.stringify(toDoList));
+		id++;
+		localStorage.setItem('id', JSON.stringify(id));
 	}
 });
 
@@ -84,7 +94,7 @@ function displayItems() {		//Выводим результат с учётом �
 	}
 	toDoOut.forEach(function(item) {
 		items += `
-		<li class="toDo__list-item list-item ${item.done ? 'list-item--done' : ''} ${item.important ? 'list-item--important' : ''} ${isTouchDevice() ? 'list-item--touch' : ''}" tabindex=0>
+		<li class="toDo__list-item list-item ${item.done ? 'list-item--done' : ''} ${item.important ? 'list-item--important' : ''} ${isTouchDevice() ? 'list-item--touch' : ''}" id="${item.id}" tabindex="0">
 			<span class="list-item__text" title='${item.text}'>${item.text.replace(/\n/g,'<br/>')}</span>
 			<button class="list-item__mark mark">${item.important ? 'NOT IMPORTANT' : 'MARK IMPORTANT'}</button>
 			<button class="list-item__del del"></button>
@@ -103,19 +113,30 @@ searchWrap.addEventListener('click', function(ev){
 search.addEventListener('input', displayItems); 			//При вводе поиска обновляет to do list
 
 let list = document.querySelector('.toDo__list');
+
+list.addEventListener('keypress', function(ev) {	//Обработчик нажатия enter на задаче
+	if (ev.key === 'Enter') {
+		ev.target.click();
+	}
+});
+
+
 list.addEventListener('click', function(ev){			//Обработчик клика на элемент списка
 
 	if (ev.target.tagName === 'LI' || ev.target.closest('.list-item__text')){			//Отмечает задачу выполненной
 		let value;
+		let num;
 		if (ev.target.closest('.list-item__text')){
 			ev.target.parentElement.classList.toggle('list-item--done');
 			value = ev.target.innerHTML.replace(/<br>/g, '\n');
+			num = +ev.target.parentElement.id;
 		} else {
 			ev.target.classList.toggle('list-item--done');
 			value = ev.target.children[0].innerHTML.replace(/<br>/g, '\n');
+			num = +ev.target.id;
 		}
 		toDoList.forEach(function(item) {
-			if (item.text === value){
+			if (item.text === value && item.id === num){
 				item.done = !item.done;
 				localStorage.setItem('toDoList', JSON.stringify(toDoList));
 			}
@@ -125,13 +146,19 @@ list.addEventListener('click', function(ev){			//Обработчик клика
 	let del = ev.target.closest ('.list-item__del')
 	if (del){			//Удаляет задачу из списка
 		let value = del.parentElement.children[0].innerHTML.replace(/<br>/g, '\n');
+		let num = +del.parentElement.id;
 		toDoList.forEach(function(item, i) {
-			if (item.text === value){
+			if (item.text === value && item.id === num){
 				toDoList.splice(i, 1);
-				displayItems();
-				localStorage.setItem('toDoList', JSON.stringify(toDoList));
 			}
 		});
+		toDoList.forEach(function(item, i) {
+			item.id = +i;
+		});
+		localStorage.setItem('toDoList', JSON.stringify(toDoList));
+		id--;
+		localStorage.setItem('id', JSON.stringify(id));
+		displayItems();
 	}	
 
 	let mark = ev.target.closest ('.list-item__mark')			//Делает задачу важной
@@ -139,8 +166,9 @@ list.addEventListener('click', function(ev){			//Обработчик клика
 		mark.parentElement.classList.toggle('list-item--important');
 		mark.innerHTML = (mark.innerHTML === 'MARK IMPORTANT') ? 'NOT IMPORTANT' : 'MARK IMPORTANT';
 		let value = mark.parentElement.children[0].innerHTML.replace(/<br>/g, '\n');
+		let num = +mark.parentElement.id;
 		toDoList.forEach(function(item) {
-			if (item.text === value){
+			if (item.text === value && item.id === num){
 				item.important = !item.important;
 				localStorage.setItem('toDoList', JSON.stringify(toDoList));
 			}
@@ -148,8 +176,6 @@ list.addEventListener('click', function(ev){			//Обработчик клика
 	}
 });
 
-function isTouchDevice() {
+function isTouchDevice() {			//Проверяет на сенсорный экран
 	return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
 }
-
-//Ошибки при отметке одного из нескольких одинаковых объектов
