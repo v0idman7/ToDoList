@@ -5,7 +5,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
-//const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev
@@ -89,7 +88,6 @@ module.exports = {
     port: 4200,
     hot: isDev
   },
-  //devtool: isDev ? 'source-map' : '',
   plugins:  [
     new HTMLWebpackPlugin({
       template: './index.html',  //исходный html
@@ -112,28 +110,6 @@ module.exports = {
     new MiniCSSExtractPlugin({
       filename: filename('css')
     }),
-    /* new ImageMinimizerPlugin({
-      test: /\.(jpe?g|png|gif|svg)$/i,
-      minimizerOptions: {
-        // Lossless optimization with custom option
-        // Feel free to experiment with options for better result for you
-        plugins: [
-          ['gifsicle', { interlaced: true }],
-          ['jpegtran', { progressive: true }],
-          ['optipng', { optimizationLevel: 5 }],
-          [
-            'svgo',
-            {
-              plugins: [
-                {
-                  removeViewBox: false,
-                },
-              ],
-            },
-          ],
-        ],
-      },
-    }), */
   ],
   target: ['web', 'es5'],
   module: {
