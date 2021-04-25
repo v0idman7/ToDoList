@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
-const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+//const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev
@@ -135,6 +135,7 @@ module.exports = {
       },
     }), */
   ],
+  target: ['web', 'es5'],
   module: {
     rules: [
       { 

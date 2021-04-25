@@ -28,6 +28,8 @@ body {
       top: 270px;
       right: -20px;
       background-size: 60%;
+      width: 450px;
+		  height: 365px;
     }
 	}
 
@@ -72,7 +74,7 @@ body {
 		border-radius: 4px;
 		font-weight: 500;
 		color: #000000;
-		opacity: 30%;
+		opacity: 0.3;
 
     &:focus {
       border-color: rgba(47, 128, 237, 0.5);
@@ -114,21 +116,21 @@ body {
     line-height: 30px;
     font-weight: 900;
     color: #53565A;
-    opacity: 50%;
+    opacity: 0.5;
     text-decoration: none;
     transition: 0.5s;
 
     &:hover, &:focus{
-      opacity: 75%;
+      opacity: 0.75;
       border-color: #E2E2E2;
     }
 
     &--active {
-      opacity: 100%;
+      opacity: 1;
       border-color: #2F80ED;
 
       &:hover { 
-        opacity: 100%;
+        opacity: 1;
         border-color: #2F80ED;
       }
     }
